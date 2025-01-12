@@ -1,0 +1,55 @@
+// script.js
+
+// Change the main product image
+function changeImage(imageSrc) {
+  const mainImage = document.getElementById("mainImage");
+  mainImage.src = imageSrc;
+}
+
+// Add a customer review
+function addReview() {
+  const reviewInput = document.getElementById("reviewInput");
+  const ratingInput = document.getElementById("ratingInput");
+  const reviewList = document.getElementById("reviewList");
+
+  const reviewText = reviewInput.value.trim();
+  const rating = ratingInput.value;
+
+  if (!reviewText) {
+    alert("Please write a review before submitting.");
+    return;
+  }
+
+  const li = document.createElement("li");
+  li.innerHTML = `<strong>Rating:</strong> ${"⭐".repeat(rating)}<br>${reviewText}`;
+  reviewList.appendChild(li);
+
+  reviewInput.value = "";
+  ratingInput.value = "5"; // Reset to default
+}
+
+// Dynamically load related products
+document.addEventListener("DOMContentLoaded", loadRelatedProducts);
+
+function loadRelatedProducts() {
+  const relatedProducts = [
+    { name: "Product 1", price: "$29.99", image: "related1.jpg" },
+    { name: "Product 2", price: "$39.99", image: "related2.jpg" },
+    { name: "Product 3", price: "$19.99", image: "related3.jpg" },
+  ];
+
+  const relatedProductsContainer = document.getElementById("relatedProducts");
+
+  relatedProducts.forEach((product) => {
+    const productCard = document.createElement("div");
+    productCard.classList.add("product-card");
+
+    productCard.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      <p>${product.price}</p>
+    `;
+
+    relatedProductsContainer.appendChild(productCard);
+  });
+}
